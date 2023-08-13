@@ -13,15 +13,16 @@ def index(request):
     return render(request, 'index.html', {})
 
 # Create your views here. 
-class MenuItemsView(generics.ListCreateAPIView):
+class MenuItemsView(generics.ListCreateAPIView, generics.CreateAPIView):
+    #permission_classes = [IsAuthenticated]
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+class SingleMenuItemView(generics.RetrieveDestroyAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
-class SingleMenuItemView(generics.RetrieveDestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
 
 class BookingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
