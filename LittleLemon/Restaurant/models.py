@@ -6,6 +6,8 @@ class Booking(models.Model):
     name = models.CharField(max_length=255)
     no_of_quests = models.IntegerField()
     bookingdate = models.DateTimeField()
+    def __str__(self):
+        return f'{self.name}'
 
 class Menu(models.Model):
     title = models.CharField(max_length=255)

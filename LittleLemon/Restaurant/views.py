@@ -19,13 +19,18 @@ class MenuItemsView(generics.ListCreateAPIView, generics.CreateAPIView):
     serializer_class = MenuSerializer
 
 class SingleMenuItemView(generics.RetrieveDestroyAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
 
-class BookingViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+class BookingViewSet(generics.ListCreateAPIView, generics.CreateAPIView):
+    #permission_classes = [IsAuthenticated]
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+class SingleBookingViewSet(generics.RetrieveDestroyAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
+    #permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     

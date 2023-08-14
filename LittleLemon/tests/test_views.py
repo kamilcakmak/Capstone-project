@@ -1,8 +1,7 @@
+import datetime
 from django.test import TestCase
-from Restaurant.models import Menu
-from Restaurant.views import MenuItemsView
-from Restaurant.serializers import MenuSerializer
-#from Restaurant.views import MenuItemsView
+from Restaurant.models import Menu, Booking
+from Restaurant.serializers import MenuSerializer, BookingSerializer
 
 class MenuViewTest(TestCase):
     def setUp(self):
@@ -20,8 +19,13 @@ class MenuViewTest(TestCase):
         # print(MenuSerializer(Menu.objects.get()).data)
         self.assertEqual(response.data, MenuSerializer(Menu.objects.all(), many=True).data)
 
-    def test2(self):
-        response = self.client.get('/restaurant/', headers={'SERVER_PORT':'8000'})
+class BookingViewTest(TestCase):
+    def setUp(self):
+        Booking.objects.create(name="test", no_of_quests=80, bookingdate=datetime.date(2023, 10, 7))
+
+    def test_getall(self):
+        response = self.client.get('/restaurant/booking/', headers={'SERVER_PORT':'8000'})
+        self.assertEqual(response.data, BookingSerializer(Booking.objects.all(), many=True).data)
 
     
     
